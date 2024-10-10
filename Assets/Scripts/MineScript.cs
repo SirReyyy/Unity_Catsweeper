@@ -29,10 +29,14 @@ public class MineScript : MonoBehaviour
     } //-- Awake end
 
     void Start() {
-        isMine = Random.value < 0.15f;
+        isMine = Random.value < 0.20f;
 
         if(isMine) {
-            // if(_singletonManager.mineCount < )
+            if(_singletonManager.mineCount > 0) {
+                _singletonManager.mineCount--;
+            } else {
+                isMine = false;
+            }
         }
 
         blockParent = gameObject.transform.parent.gameObject;
@@ -42,20 +46,46 @@ public class MineScript : MonoBehaviour
     public void ShowMines() {
         if (isMine) {
             int index = Random.Range(0, numberPrefabs.Length);
-            sR.sprite = catsImages[index];
+
+            GameObject mineObj = Instantiate(minePrefab, initialPos, Quaternion.identity);
+            mineObj.transform.parent = blockParent.transform;
+            mineObj.GetComponent<SpriteRenderer>().sprite = catsImages[index];
+
+            // Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     } //-- ShowMines end
 
     public void ShowNearbyMinesCount(int nearbyMines) {
-        // gameObject.SetActive(false);
-        GameObject newObj = Instantiate(numberPrefabs[nearbyMines], initialPos, Quaternion.identity);
-        newObj.transform.parent = blockParent.transform;
+        GameObject nearbyObj = Instantiate(numberPrefabs[nearbyMines], initialPos, Quaternion.identity);
+        nearbyObj.transform.parent = blockParent.transform;
 
-        Destroy(gameObject);
+        // Destroy(gameObject);
+        gameObject.SetActive(false);
     } //-- ShowNearMines end
 
+    public bool IsClicked() {
+        // return sR.sprite.texture.name == "White_Hidden";
+        return gameObject.tag == null;
+    } //-- IsClicked end
+
+
     void OnMouseDown() {
-        ShowNearbyMinesCount(5);
+        if(isMine) {
+            MatrixGrid.ShowAllMines();
+            Debug.Log("Game Over");
+        } else {
+            string[] index = gameObject.name.Split("-");
+            int x = int.Parse(index[0]);
+            int y = int.Parse(index[1]);
+
+            ShowNearbyMinesCount(MatrixGrid.NearbyMines(x, y));
+            MatrixGrid.CheckMines(x, y, new bool[_singletonManager.rows, _singletonManager.columns]);
+
+            if(MatrixGrid.CheckGameStatus()) {
+                Debug.Log("Win");
+            }
+        }
     } //-- OnMouseDown end
 
 }

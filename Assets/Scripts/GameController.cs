@@ -38,6 +38,7 @@ public class GameController : MonoBehaviour
     void Awake() {
         _singletonManager = Singleton.Instance;
         SetDifficulty();
+        SaveToSingleton();
     } //-- Awake end
 
     public void Start() {
@@ -46,14 +47,14 @@ public class GameController : MonoBehaviour
 
     public void OnLevelLoaded() {
         if (SceneManager.GetActiveScene().name == "Game") {
-            MatrixGrid.mineBlocks = new MineBlocks[rows, columns];
+            MatrixGrid.mineBlocks = new MineScript[rows, columns];
 
             for(int x = 0; x < rows; x++) {
                 for (int y = 0; y < columns; y++) {
                     GameObject mine = Instantiate(mineBlocks, new Vector3(x - rows/2, y - columns/2, 0), Quaternion.identity) as GameObject;
                     mine.name = x + "-" + y;
                     mine.transform.parent = mineField.transform;
-                    MatrixGrid.mineBlocks[x, y] = mine.GetComponent<MineBlocks>();
+                    MatrixGrid.mineBlocks[x, y] = mine.GetComponent<MineScript>();
                 }
             }
 
@@ -75,26 +76,30 @@ public class GameController : MonoBehaviour
                 posX = 2.2f; posY = 0;
                 scale = 1.0f;
                 mineCount = remMines = normalMineCount;
-                _singletonManager.mineCount = mineCount;
                 break;
             case 0:
                 rows = 9; columns = 8;
                 posX = 2.5f; posY = 0.4f;
                 scale = 1.1f;
                 mineCount = remMines = easyMineCount;
-                _singletonManager.mineCount = mineCount;
                 break;
             case 2:
                 rows = 13; columns = 10;
                 posX = 2.3f; posY = 0.4f;
                 scale = 0.9f;
                 mineCount = remMines = diffMineCount;
-                _singletonManager.mineCount = mineCount;
                 break;
         }
     }
 
+    public void SaveToSingleton() {
+        _singletonManager.mineCount = mineCount;
+        _singletonManager.rows = rows;
+        _singletonManager.columns = columns;
+    } //-- SaveToSingleton end
+
     public void ReturnBtnPressed() {
+        _singletonManager.mineCount = remMines;
         SceneManager.LoadScene("Menu");
     } //-- ReturnBtnPressed end
 

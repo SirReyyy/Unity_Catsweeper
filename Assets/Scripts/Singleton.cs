@@ -8,6 +8,8 @@ public class Singleton : MonoBehaviour
 
     public int difficulty { get; set; }
     public int mineCount { get; set; }
+    public int rows { get; set; }
+    public int columns { get; set; }
 
     // Singleton Instance
     public static Singleton Instance {
