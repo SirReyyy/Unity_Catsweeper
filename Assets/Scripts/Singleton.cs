@@ -6,8 +6,8 @@ public class Singleton : MonoBehaviour
 {
     private static Singleton instance;
 
-    public int GridSize { get; set; }
-    
+    public int difficulty { get; set; }
+    public int mineCount { get; set; }
 
     // Singleton Instance
     public static Singleton Instance {

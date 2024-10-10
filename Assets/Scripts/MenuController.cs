@@ -32,14 +32,14 @@ public class MenuController : MonoBehaviour
         diffBtn = menuBtn[2];
 
         foreach (GameObject btnObj in menuBtn) {
-            btnObj.GetComponent<Button>().onClick.AddListener(() => SetGridSize());
+            btnObj.GetComponent<Button>().onClick.AddListener(() => SetDifficulty());
             btnObj.SetActive(false);
         }
     } //-- GetMenuButtons end
 
-    private void SetGridSize() {
+    private void SetDifficulty() {
         string name = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
-        _singletonManager.GridSize = int.Parse(name);
+        _singletonManager.difficulty = int.Parse(name);
         SceneManager.LoadScene("Game");
     } //-- SetGridSize end
 

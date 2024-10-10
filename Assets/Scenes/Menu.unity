@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 50833953}
   - component: {fileID: 50833952}
   m_Layer: 5
-  m_Name: 60
+  m_Name: 1
   m_TagString: MenuButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -435,7 +435,7 @@ GameObject:
   - component: {fileID: 272549198}
   - component: {fileID: 272549197}
   m_Layer: 5
-  m_Name: 40
+  m_Name: 0
   m_TagString: MenuButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -876,7 +876,7 @@ GameObject:
   - component: {fileID: 932281683}
   - component: {fileID: 932281682}
   m_Layer: 5
-  m_Name: 80
+  m_Name: 2
   m_TagString: MenuButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -411,7 +411,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -10
   m_TargetDisplay: 0
 --- !u!224 &116096044
 RectTransform:
@@ -434,6 +434,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &119931838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 119931839}
+  m_Layer: 0
+  m_Name: Minefield Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &119931839
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119931838}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &272549195
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,7 +609,7 @@ GameObject:
   - component: {fileID: 288811157}
   - component: {fileID: 288811156}
   m_Layer: 5
-  m_Name: RemainingTxt
+  m_Name: CatsTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -602,7 +633,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 250, y: -100}
-  m_SizeDelta: {x: 362, y: 122}
+  m_SizeDelta: {x: 309, y: 84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &288811156
 MonoBehaviour:
@@ -624,7 +655,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1adb5ecf6fc88bd4386b5545f9aec68c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f5fb6464b6d5437458cb2ddb7a83318e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -746,7 +777,7 @@ GameObject:
   - component: {fileID: 740106954}
   - component: {fileID: 740106953}
   m_Layer: 5
-  m_Name: RemainingCount
+  m_Name: CatsCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -818,8 +849,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -994,7 +1025,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad55c59f57ed7fb4cb77d1bfdac3a567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClips: []
+  mineCountTxt: {fileID: 740106953}
+  mineBlocks: {fileID: 7752855375349977005, guid: 84cc05e08df0d82498e2bc45b0d9e562, type: 3}
+  mineField: {fileID: 119931838}
+  audioClips:
+  - {fileID: 8300000, guid: 7cc6e9a8578836746a0b1350dd6f117d, type: 3}
+  - {fileID: 8300000, guid: edbe4b6e0d533a244af513800c8f84c2, type: 3}
 --- !u!4 &1235255661
 Transform:
   m_ObjectHideFlags: 0
@@ -1198,3 +1234,4 @@ SceneRoots:
   - {fileID: 116096044}
   - {fileID: 1967343023}
   - {fileID: 1235255661}
+  - {fileID: 119931839}
