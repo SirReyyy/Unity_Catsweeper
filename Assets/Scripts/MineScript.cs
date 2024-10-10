@@ -66,14 +66,14 @@ public class MineScript : MonoBehaviour
 
     public bool IsClicked() {
         // return sR.sprite.texture.name == "White_Hidden";
-        return gameObject.tag == null;
+        return gameObject.tag == "WhiteBlock";
     } //-- IsClicked end
-
 
     void OnMouseDown() {
         if(isMine) {
             MatrixGrid.ShowAllMines();
-            Debug.Log("Game Over");
+            _singletonManager.isGameOver = true;
+            // Show Game Over
         } else {
             string[] index = gameObject.name.Split("-");
             int x = int.Parse(index[0]);
@@ -82,12 +82,11 @@ public class MineScript : MonoBehaviour
             ShowNearbyMinesCount(MatrixGrid.NearbyMines(x, y));
             MatrixGrid.CheckMines(x, y, new bool[_singletonManager.rows, _singletonManager.columns]);
 
-            if(MatrixGrid.CheckGameStatus()) {
-                Debug.Log("Win");
+            if(MatrixGrid.CheckBlockStatus()) {
+                // Show Game Win
             }
         }
     } //-- OnMouseDown end
-
 }
 
 

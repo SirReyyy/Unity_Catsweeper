@@ -25,27 +25,38 @@ public class GameController : MonoBehaviour
     [HideInInspector]
     private int columns;
 
-
     private int easyMineCount = 15, normalMineCount = 20, diffMineCount = 30;
     private int mineCount, remMines;
 
-    [Header("Audio Files")]
-    public AudioClip[] audioClips;
-    private AudioSource audioSource;
+    [Header("Ending")]
+    public GameObject winner;
+    public GameObject gameover;
 
     //----- Functions
 
     void Awake() {
         _singletonManager = Singleton.Instance;
+
         SetDifficulty();
         SaveToSingleton();
     } //-- Awake end
 
-    public void Start() {
+    void Start() {
         OnLevelLoaded();
+
+        winner.SetActive(false);
+        gameover.SetActive(false);
     } //-- Start end
 
+    void Update() {
+        if(_singletonManager.isGameOver) {
+            RemoveColliders();
+        }
+    } //-- Update end
+
+
     public void OnLevelLoaded() {
+        _singletonManager.isGameOver = false;
         if (SceneManager.GetActiveScene().name == "Game") {
             MatrixGrid.mineBlocks = new MineScript[rows, columns];
 
@@ -90,7 +101,7 @@ public class GameController : MonoBehaviour
                 mineCount = remMines = diffMineCount;
                 break;
         }
-    }
+    } //-- SetDifficulty end
 
     public void SaveToSingleton() {
         _singletonManager.mineCount = mineCount;
@@ -104,8 +115,28 @@ public class GameController : MonoBehaviour
     } //-- ReturnBtnPressed end
 
     public void RestartBtnPressed() {
+        _singletonManager.isGameOver = false;
         SceneManager.LoadScene("Game");
     } //-- RestartBtnPressed end
+
+    void RemoveColliders() {// Find all GameObjects with the tag "WhiteBlock"
+        GameObject[] minesObj = GameObject.FindGameObjectsWithTag("WhiteBlock");
+        
+        foreach (GameObject mine in minesObj) {
+            BoxCollider2D boxCollider = mine.GetComponent<BoxCollider2D>();
+            if (boxCollider != null) {
+                Destroy(boxCollider); // Remove the BoxCollider component
+            }
+        }
+
+        StartCoroutine(ShowGameOver());
+    } //-- RemoveColliders
+
+    IEnumerator ShowGameOver() {
+        yield return new WaitForSeconds(2.0f);
+        gameover.SetActive(true);
+    } //-- ShowGameOver
+
 }
 
 

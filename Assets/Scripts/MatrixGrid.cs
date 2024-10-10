@@ -73,14 +73,14 @@ public class MatrixGrid
     } //-- CheckMines end
 
     
-    public static bool CheckGameStatus() {
+    public static bool CheckBlockStatus() {
         foreach(MineScript block in mineBlocks) {
             if(block.IsClicked() && !block.isMine) {
                 return false;
             }
         }
         return true;
-    } //-- IsGameDone end
+    } //-- CheckBlockStatus end
 }
 
 

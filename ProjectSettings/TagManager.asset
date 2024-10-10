@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayButton
   - MenuButton
+  - WhiteBlock
   layers:
   - Default
   - TransparentFX

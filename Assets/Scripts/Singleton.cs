@@ -10,6 +10,7 @@ public class Singleton : MonoBehaviour
     public int mineCount { get; set; }
     public int rows { get; set; }
     public int columns { get; set; }
+    public bool isGameOver { get; set; } = false;
 
     // Singleton Instance
     public static Singleton Instance {
