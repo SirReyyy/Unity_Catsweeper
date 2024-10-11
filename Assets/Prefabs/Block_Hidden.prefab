@@ -167,3 +167,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ef683f045e08ce5418346df7b4f060a3, type: 3}
   - {fileID: 21300000, guid: b2d59bf31671555488d8cbaad3931504, type: 3}
   - {fileID: 21300000, guid: 2402f948d0fc42c458aff5bb76e9ad07, type: 3}
+  flagImage:
+  - {fileID: 21300000, guid: 34ccd9a45da473448a2ea9ae56a01f8f, type: 3}
+  - {fileID: 21300000, guid: e2368a6407fe40346bdaa6a4a6d9eae7, type: 3}

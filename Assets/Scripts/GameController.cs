@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
     [HideInInspector]
     private int columns;
 
-    private int easyMineCount = 2, normalMineCount = 20, diffMineCount = 30;
+    private int easyMineCount = 12, normalMineCount = 20, diffMineCount = 30;
     private int mineCount, remMines;
 
     [Header("Ending")]
