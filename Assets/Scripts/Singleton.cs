@@ -8,9 +8,14 @@ public class Singleton : MonoBehaviour
 
     public int difficulty { get; set; }
     public int mineCount { get; set; }
+    public int targetBlocks { get; set; }
     public int rows { get; set; }
     public int columns { get; set; }
+
+    // public int openBlock { get; set; }
     public bool isGameOver { get; set; } = false;
+    public bool isGameWon { get; set; } = false;
+
 
     // Singleton Instance
     public static Singleton Instance {

@@ -22,6 +22,7 @@ public class MineScript : MonoBehaviour
     [Header("Revealed Blocks")]
     private Vector2 initialPos;
     private GameObject blockParent;
+    private bool isRevealed = false;
 
     //----- Functions
     void Awake() {
@@ -30,9 +31,8 @@ public class MineScript : MonoBehaviour
 
     void Start() {
         isMine = Random.value < 0.20f;
-
-        if(isMine) {
-            if(_singletonManager.mineCount > 0) {
+        if (isMine) {
+            if (_singletonManager.mineCount > 0) {
                 _singletonManager.mineCount--;
             } else {
                 isMine = false;
@@ -51,7 +51,7 @@ public class MineScript : MonoBehaviour
             mineObj.transform.parent = blockParent.transform;
             mineObj.GetComponent<SpriteRenderer>().sprite = catsImages[index];
 
-            // Destroy(gameObject);
+            isRevealed = true;
             gameObject.SetActive(false);
         }
     } //-- ShowMines end
@@ -60,31 +60,32 @@ public class MineScript : MonoBehaviour
         GameObject nearbyObj = Instantiate(numberPrefabs[nearbyMines], initialPos, Quaternion.identity);
         nearbyObj.transform.parent = blockParent.transform;
 
-        // Destroy(gameObject);
+        isRevealed = true;
         gameObject.SetActive(false);
     } //-- ShowNearMines end
 
     public bool IsClicked() {
-        // return sR.sprite.texture.name == "White_Hidden";
-        return gameObject.tag == "WhiteBlock";
+        //return gameObject.tag == "WhiteBlock";
+        return isRevealed;
     } //-- IsClicked end
 
     void OnMouseDown() {
         if(isMine) {
             MatrixGrid.ShowAllMines();
             _singletonManager.isGameOver = true;
-            // Show Game Over
         } else {
             string[] index = gameObject.name.Split("-");
             int x = int.Parse(index[0]);
             int y = int.Parse(index[1]);
 
+            MatrixGrid.RevealBlock();
             ShowNearbyMinesCount(MatrixGrid.NearbyMines(x, y));
             MatrixGrid.CheckMines(x, y, new bool[_singletonManager.rows, _singletonManager.columns]);
 
-            if(MatrixGrid.CheckBlockStatus()) {
-                // Show Game Win
-            }
+            Debug.Log("Target: " + _singletonManager.targetBlocks.ToString());
+            if (MatrixGrid.CheckGameStatus() == _singletonManager.targetBlocks) {
+                _singletonManager.isGameWon = true;
+            }   
         }
     } //-- OnMouseDown end
 }

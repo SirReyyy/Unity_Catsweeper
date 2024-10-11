@@ -5,7 +5,9 @@ public class MatrixGrid
 {
     private Singleton _singletonManager;
     public static MineScript[,] mineBlocks;
-    
+
+    private static int revealedBlocksCount = 0;
+
     void Awake() {
         _singletonManager = Singleton.Instance;
     } //-- Awake end
@@ -57,8 +59,10 @@ public class MatrixGrid
             mineBlocks[x, y].ShowMines();
             mineBlocks[x, y].ShowNearbyMinesCount(NearbyMines(x, y));
 
-            if (NearbyMines(x, y) > 0)
-                return;
+            if (!visited[x, y])
+                RevealBlock();
+            
+            if (NearbyMines(x, y) > 0) return;
 
             visited[x, y] = true;
             CheckMines(x + 1, y, visited);
@@ -72,15 +76,20 @@ public class MatrixGrid
         }
     } //-- CheckMines end
 
-    
-    public static bool CheckBlockStatus() {
-        foreach(MineScript block in mineBlocks) {
-            if(block.IsClicked() && !block.isMine) {
-                return false;
+    public static void RevealBlock() {
+        revealedBlocksCount++;
+    } //-- RevealBlock end
+
+    public static int CheckGameStatus() {
+        int revealedCount = 0;
+        foreach (MineScript block in mineBlocks) {
+            if (block.IsClicked() && !block.isMine) {
+                revealedCount++;
             }
         }
-        return true;
-    } //-- CheckBlockStatus end
+
+        return revealedCount;
+    }
 }
 
 

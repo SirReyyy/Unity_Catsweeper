@@ -1066,7 +1066,7 @@ MonoBehaviour:
   mineCountTxt: {fileID: 740106953}
   mineBlocks: {fileID: 7752855375349977005, guid: 84cc05e08df0d82498e2bc45b0d9e562, type: 3}
   mineField: {fileID: 119931838}
-  winner: {fileID: 1588240321}
+  gamewon: {fileID: 1588240321}
   gameover: {fileID: 1458240258}
 --- !u!4 &1235255661
 Transform:
@@ -1215,7 +1215,7 @@ GameObject:
   - component: {fileID: 1588240322}
   - component: {fileID: 1588240323}
   m_Layer: 0
-  m_Name: winner
+  m_Name: gamewon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

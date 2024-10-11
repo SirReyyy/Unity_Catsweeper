@@ -25,11 +25,11 @@ public class GameController : MonoBehaviour
     [HideInInspector]
     private int columns;
 
-    private int easyMineCount = 15, normalMineCount = 20, diffMineCount = 30;
+    private int easyMineCount = 2, normalMineCount = 20, diffMineCount = 30;
     private int mineCount, remMines;
 
     [Header("Ending")]
-    public GameObject winner;
+    public GameObject gamewon;
     public GameObject gameover;
 
     //----- Functions
@@ -44,12 +44,12 @@ public class GameController : MonoBehaviour
     void Start() {
         OnLevelLoaded();
 
-        winner.SetActive(false);
+        gamewon.SetActive(false);
         gameover.SetActive(false);
     } //-- Start end
 
     void Update() {
-        if(_singletonManager.isGameOver) {
+        if(_singletonManager.isGameOver || _singletonManager.isGameWon) {
             RemoveColliders();
         }
     } //-- Update end
@@ -71,10 +71,10 @@ public class GameController : MonoBehaviour
 
             mineField.transform.localScale = new Vector3(scale, scale, 1);
             mineField.transform.position = new Vector3(posX, posY, 0);
+            
             mineCountTxt.text = remMines.ToString();
-
         } else {
-            mineCount = 0;
+           mineCount = 0;
         }
     } //-- OnLevelLoaded end
 
@@ -104,6 +104,7 @@ public class GameController : MonoBehaviour
     } //-- SetDifficulty end
 
     public void SaveToSingleton() {
+        _singletonManager.targetBlocks = (rows * columns) - mineCount;
         _singletonManager.mineCount = mineCount;
         _singletonManager.rows = rows;
         _singletonManager.columns = columns;
@@ -116,6 +117,7 @@ public class GameController : MonoBehaviour
 
     public void RestartBtnPressed() {
         _singletonManager.isGameOver = false;
+        _singletonManager.isGameWon = false;
         SceneManager.LoadScene("Game");
     } //-- RestartBtnPressed end
 
@@ -129,12 +131,18 @@ public class GameController : MonoBehaviour
             }
         }
 
-        StartCoroutine(ShowGameOver());
+        if(_singletonManager.isGameOver) StartCoroutine(ShowGameOver());
+        if(_singletonManager.isGameWon) StartCoroutine(ShowGameWon());
     } //-- RemoveColliders
 
     IEnumerator ShowGameOver() {
         yield return new WaitForSeconds(2.0f);
         gameover.SetActive(true);
+    } //-- ShowGameOver
+
+    IEnumerator ShowGameWon() {
+        yield return new WaitForSeconds(2.0f);
+        gamewon.SetActive(true);
     } //-- ShowGameOver
 
 }
